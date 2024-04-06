@@ -6,6 +6,7 @@ import { Navbar } from './pages/Navbar'
 import { Detection } from './pages/Detection'
 import ChatBot from './component/ChatBot'
 import { Feedback } from './pages/Feedback'
+import Posts from './pages/Posts'
 function App() {
   return (
     <>
@@ -13,7 +14,8 @@ function App() {
     {/* <Navbar/> */}
        <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/about' element={<About/>}/>
+          {/* <Route path='/about' element={<About/>}/> */}
+          <Route path='/posts' element={<Posts/>}/>
           <Route path='/detect' element={<Detection/>}/>
           <Route path='/feedback' element={<Feedback/>}/>
        </Routes>

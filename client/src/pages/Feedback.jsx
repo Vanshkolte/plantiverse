@@ -29,7 +29,7 @@ export const Feedback = () => {
         navigate('/');
         setName('');
         setMessage('');
-        setRating(1);
+        setRating(0);
       } else {
         console.error('Failed to submit feedback');
       }
@@ -70,7 +70,7 @@ export const Feedback = () => {
               />
             </div>
             <div className="mb-4">
-            <Rating name="size-large" value={rating}  onChange={(e) => setRating(e.target.value)} size="large" aria-required />
+            <Rating name="size-large" value={rating}  onChange={(e) => setRating(e.target.value)} size="large" />
             </div>
             <button
               type="submit"

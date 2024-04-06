@@ -23,12 +23,12 @@ const ChatBot = () => {
         };
 
         setMessages(prevMessages => [...prevMessages, newMessage]);
-        setInputText('');
-
+        
         try {
             const response = await axios.post('http://localhost:8000/chatbot', {
                 message: inputText
             });
+            setInputText('');
 
             const botResponse = {
                 text: response.data,

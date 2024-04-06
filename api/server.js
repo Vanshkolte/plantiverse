@@ -23,7 +23,7 @@ const Post = mongoose.model('Post', {
   rating:Number
 });
 const User = mongoose.model('User', {
-  email:string
+  email:String
 });
 
 // Routes
