@@ -48,12 +48,19 @@ const ChatBot = () => {
         setMenu(false)
         // setMessages("");
     };
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+          handleMessageSubmit();
+          setInputText('')
+        }
+      };
+      
     return (
         <div className=''>
             <img
                 className="fixed w-16 h-16  bottom-10 right-10 p-1 bg-white text-white rounded-full cursor-pointer z-50"
                 onClick={popUP}
-                src="/assets/ai_plant/cute.avif" alt=""
+                src="/assets/ai_plant/g.avif" alt=""
                 title="Talk to ChatBot"
             />
                 {/* <img className='w-12 h-12' src="/assets/ai_plant/cute.avif" alt="" /> */}
@@ -69,7 +76,7 @@ const ChatBot = () => {
                             className="fixed flex justify-between items-center w-72 h-[26rem] bg-gray-100 flex-col right-20 bottom-32 rounded-lg overflow-hidden z-40">
                             <div className="flex w-full justify-between items-center bg-black h-18 text-white p-4 shadow-2xl">
                                 <div className='flex gap-2'>
-                                    <img className='w-12' src="/assets/robot.svg" alt="" />
+                                    <img className='w-12 h-12 rounded-full' src="/assets/ai_plant/pila.avif" alt="" />
                                     <div className='flex flex-col justify-center items-center'>
                                         <span>Chat Bot</span>
                                         <div className='flex items-center text-[#43EE7D]'>
@@ -102,8 +109,8 @@ const ChatBot = () => {
                                 ))}
                             </div>
                             <div className='w-full mx-10 px-6 py-4 rounded-lg flex gap-2 items-center bg-transparant'>
-                                <input className='outline-none  border bg-transparant rounded-lg w-full text-black p-2' onChange={handleInputChange} type="text" placeholder='Type your message here' />
-                                <span className='text-3xl cursor-pointer text-violet-600' onClick={handleMessageSubmit}><AiOutlineSend /></span>
+                                <input className='outline-none  border bg-transparant rounded-lg w-full text-black p-2'  onChange={handleInputChange} onKeyDown={handleKeyPress}  type="text" placeholder='Type your message here' />
+                                <span className='text-3xl cursor-pointer text-green-600' onClick={handleMessageSubmit}><AiOutlineSend /></span>
                             </div>
                         </motion.div>
                     )

@@ -68,7 +68,7 @@ function Input() {
             <div className="flex flex-col gap-4">
               <span className="text-3xl font-bold">Is Your Plant Healthy ? </span>
               <p>Check By Upload a photo of your <strong>{url}</strong> plant</p>
-              <div className="flex flex-col p-4 justify-center items-center h-54 w-96 border-2 border-dashed rounded-lg">
+              <div className="flex flex-col p-4 justify-center items-center h-64 w-[28rem] border-4 border-dashed rounded-lg">
                 <span className="text-9xl"><LuUploadCloud /></span>
                 <span className="">Click Here for Upload image</span>
                 <input
@@ -80,7 +80,7 @@ function Input() {
               </div>
             </div>
           )}
-          {image && <img className="mt-4 w-96" id="upload-img" src={image} alt="Uploaded plant" />}
+          {image && <img className="mt-4 h-64 w-[28rem] object-cover" id="upload-img" src={image} alt="Uploaded plant" />}
           <div className="flex justify-center items-center text-white mt-4 gap-8">
             <button className="btn bg-black" onClick={onFileUpload}>Identify</button>
             <button className="btn bg-black" onClick={clearData}>Clear Data</button>
@@ -92,11 +92,131 @@ function Input() {
             <p><strong>Disease:</strong> {data}</p>
             <p><strong>Confidence:</strong> {(per * 100).toFixed(2)}%</p>
           </div>
-          {data && (
-            <div className="treat mt-4">
-              <h2 className="text-xl font-semibold">Treatment</h2>
+          {data == "Anthracnose" && (
+            <div className="treat">
+              <h1>Treatment</h1>
               <ul>
-                {/* Add treatment list items based on the disease */}
+                <li>Remove Affected Parts</li>
+                <li>Fungicide Application</li>
+              </ul>
+            </div>
+          )}
+          {data == "Leaf Crinckle" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts</li>
+                <li>Control Aphid Vectors</li>
+                <li>Plant Virus-free Seed</li>
+              </ul>
+            </div>
+          )}
+          {data == "Powdery Mildew" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts</li>
+                <li>Fungicide Application</li>
+                <li>Air Circulation</li>
+              </ul>
+            </div>
+          )}
+          {data == "Yellow Mosaic" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts</li>
+                <li>Control Whitefly Vectors</li>
+                <li>Plant Virus-Free Seed</li>
+              </ul>
+            </div>
+          )}
+          {data == "Early Blight" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Proper Fertilization</li>
+                <li>Irrigation</li>
+                <li>Management of other pests</li>
+              </ul>
+            </div>
+          )}
+          {data == "Late Blight" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Apply Fungicides</li>
+                <li>Management of other pests</li>
+              </ul>
+            </div>
+          )}
+          {data == "Mosaic Virus" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts</li>
+                <li>Control Whitefly Vectors</li>
+                <li>Plant Virus-Free Seed</li>
+              </ul>
+            </div>
+          )}
+          {data == "YellowLeaf Curl Virus" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts</li>
+                <li>Control Whitefly Vectors</li>
+                <li>Plant Virus-Free Seed</li>
+              </ul>
+            </div>
+          )}
+          {data == "Bell Bacterial Spot" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Copper Sprays</li>
+              </ul>
+            </div>
+          )}
+          {data == "Early Leaf Spot" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Apply Fungicides or Neem Oil</li>
+              </ul>
+            </div>
+          )}
+          {data == "Early Rust" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts</li>
+              </ul>
+            </div>
+          )}
+          {data == "Late Leaf Spot" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Crop rotation with non-host crops preferably cereals</li>
+              </ul>
+            </div>
+          )}
+          {data == "Nutrition Deficiency" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Application of 250kg/Ha Gypsum</li>
+              </ul>
+            </div>
+          )}
+          {data == "Rust" && (
+            <div className="treat">
+              <h1>Treatment</h1>
+              <ul>
+                <li>Remove Affected Parts
+                  
+                </li>
               </ul>
             </div>
           )}

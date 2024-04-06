@@ -6,6 +6,7 @@ import { Detection } from './Detection'
 import { Feedback } from './Feedback'
 import { Carousell } from './Carousell'
 import { Footer } from '../component/Footer'
+import { Info } from './Info'
 export const Home = () => {
   return (
     <>
@@ -19,8 +20,9 @@ export const Home = () => {
       </div>
         <img className='absolute top-0 z-0 w-full h-full' src="/assets/bg/bg.png" alt="" />
     </div>
-    <About/>
     <Carousell/>
+    <Info/>
+    <About/>
     <Detection/>
     <Feedback/>
     <Footer/>
