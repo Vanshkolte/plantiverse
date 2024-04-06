@@ -1,11 +1,9 @@
 import React from 'react'
-import Input from '../component/input'
 
 export const About = () => {
   return (
-    <div className='w-full h-screen bg-center'>
+    <div id='about' className='w-full h-screen flex justify-center items-center'>
         About
-        <Input/>
     </div>
   )
 }

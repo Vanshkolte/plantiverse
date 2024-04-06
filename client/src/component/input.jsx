@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-// import "./input.css";
 import { LuUploadCloud } from "react-icons/lu";
 import Potato from "/assets/plants/potatoo.png";
-import groundnut from "/assets/plants/groundnut.jpeg";
-import tomata from "/assets/plants/tomata.jpeg";
-import pepper from "/assets/plants/pepper.jpg";
+import groundnut from "/assets/plants/groundnut.png";
+import tomata from "/assets/plants/tomata.png";
+import pepper from "/assets/plants/pepper.png";
 import blackgram from "/assets/plants/blackgram.png";
+
 function Input() {
   const [image, setImage] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [data, setData] = useState([]);
-  const [per, setPer] = useState([]);
-  const [err, setErr] = useState(null);
-  const [url, setUrl] = useState('');
+  const [data, setData] = useState("");
+  const [per, setPer] = useState(0);
+  const [url, setUrl] = useState("");
 
   const onFileChange = (event) => {
     const uploadedImage = event.target.files[0];
@@ -25,208 +24,78 @@ function Input() {
   const onFileUpload = () => {
     const formData = new FormData();
     formData.append("file", selectedFile);
-    axios
-      .post(`http://localhost:8000/predict/${url}`, formData)
-      .then((response) => {
-        console.log(response);
-        const obj = response.data;
-        // setData(JSON.stringify(obj));
-        setData(obj.class);
-        setPer(obj.confidence);
-      });
+    axios.post(`http://localhost:8000/predict/${url}`, formData).then((response) => {
+      const obj = response.data;
+      setData(obj.class);
+      setPer(obj.confidence);
+    });
   };
 
   const clearData = () => {
     setSelectedFile(null);
     setImage(false);
-    setData(null);
-    setPer(null);
+    setData("");
+    setPer(0);
   };
 
   return (
     <>
-      <h1 id="head">Give it a try </h1>
-      <div className="buttons">
-        <h1 id="sel">Select a plant</h1>
-        <div className="btns">
-          <button onClick={() => setUrl('potato') }> <img className="w-24" src={Potato} alt="" /></button>
-          <button onClick={() => setUrl('tomato') }><img className="w-24" src={tomata} alt="" /></button>
-          <button onClick={() => setUrl('pepper') }><img className="w-24" src={pepper} alt="" /></button>
-          <button onClick={() => setUrl('groundnut') }><img className="w-24" src={groundnut} alt="" /></button>
-          <button onClick={() => setUrl('blackgram') }><img className="w-24" src={blackgram} alt="" /></button>
+      <h1 className="text-3xl font-bold text-center mb-8">Give it a try</h1>
+      <div className="flex flex-col items-center mb-8">
+        <h2 className="text-xl font-semibold mb-4">Select a plant</h2>
+        <div className="flex gap-4">
+          <button onClick={() => setUrl('potato')} className=" bg-gray-400 rounded-full p-2 active:bg-gray-200" title="potato">
+            <img className="w-16 h-16" src={Potato} alt="" />
+          </button>
+          <button onClick={() => setUrl('tomato')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="tomato">
+            <img className="w-16 h-16" src={tomata} alt="" />
+          </button>
+          <button onClick={() => setUrl('pepper')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="pepper">
+            <img className="w-16 h-16" src={pepper} alt="" />
+          </button>
+          <button onClick={() => setUrl('groundnut')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="groundnut">
+            <img className="w-16 h-16" src={groundnut} alt="" />
+          </button>
+          <button onClick={() => setUrl('blackgram')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="blackgram">
+            <img className="w-16 h-16" src={blackgram} alt="" />
+          </button>
         </div>
       </div>
       <input type="button" value="" />
-      <div className="homepage">
-        <div
-          className="box1"
-        >
+      <div className="flex justify-center items-center gap-8">
+        <div className="box1 mr-4">
           {!image && (
-            <div>
-              <p style={{textAlign:"center"}}>Upload a photo of your <strong>{url} plant </strong></p>
+            <div className="text-center">
+              <p>Upload a photo of your <strong>{url}</strong> plant</p>
               <div className="input-box">
-                <span>
-                  <LuUploadCloud />
-                </span>
-                <span id="up-text">Click Here for Upload image</span>
+                <LuUploadCloud />
+                <span className="ml-2" id="up-text">Click Here for Upload image</span>
                 <input
                   className="input"
                   type="file"
                   accept="image/*"
                   onChange={onFileChange}
                 />
-              </div>{" "}
+              </div>
             </div>
           )}
-          {image && <img id="upload-img" src={image} alt="Uploaded plant" />}
-          <div className="btn-box">
-            <button id="btni" onClick={onFileUpload}>
-              Identify
-            </button>
-            <button id="btni" onClick={clearData}>
-              Clear Data
-            </button>
+          {image && <img className="mt-4" id="upload-img" src={image} alt="Uploaded plant" />}
+          <div className="flex text-white mt-4 gap-8">
+            <button className="btn bg-black" onClick={onFileUpload}>Identify</button>
+            <button className="btn bg-black" onClick={clearData}>Clear Data</button>
           </div>
         </div>
-        <div
-          className="box2"
-        >
+        <div className="box2">
           <div className="text2">
-            <h1 id="h1">Result</h1>
-            <span id="d">
-              {" "}
-              <strong>Disease :</strong> {data}
-            </span>{" "}
-            <br />
-            <span id="c">
-              <strong>Confidence :</strong> {(per * 100).toFixed(2)}%
-            </span>
+            <h2 className="text-xl font-semibold">Result</h2>
+            <p><strong>Disease:</strong> {data}</p>
+            <p><strong>Confidence:</strong> {(per * 100).toFixed(2)}%</p>
           </div>
-          {data == "Anthracnose" && (
-            <div className="treat">
-              <h1>Treatment</h1>
+          {data && (
+            <div className="treat mt-4">
+              <h2 className="text-xl font-semibold">Treatment</h2>
               <ul>
-                <li>Remove Affected Parts</li>
-                <li>Fungicide Application</li>
-              </ul>
-            </div>
-          )}
-          {data == "Leaf Crinckle" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts</li>
-                <li>Control Aphid Vectors</li>
-                <li>Plant Virus-free Seed</li>
-              </ul>
-            </div>
-          )}
-          {data == "Powdery Mildew" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts</li>
-                <li>Fungicide Application</li>
-                <li>Air Circulation</li>
-              </ul>
-            </div>
-          )}
-          {data == "Yellow Mosaic" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts</li>
-                <li>Control Whitefly Vectors</li>
-                <li>Plant Virus-Free Seed</li>
-              </ul>
-            </div>
-          )}
-          {data == "Early Blight" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Proper Fertilization</li>
-                <li>Irrigation</li>
-                <li>Management of other pests</li>
-              </ul>
-            </div>
-          )}
-          {data == "Late Blight" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Apply Fungicides</li>
-                <li>Management of other pests</li>
-              </ul>
-            </div>
-          )}
-          {data == "Mosaic Virus" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts</li>
-                <li>Control Whitefly Vectors</li>
-                <li>Plant Virus-Free Seed</li>
-              </ul>
-            </div>
-          )}
-          {data == "YellowLeaf Curl Virus" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts</li>
-                <li>Control Whitefly Vectors</li>
-                <li>Plant Virus-Free Seed</li>
-              </ul>
-            </div>
-          )}
-          {data == "Bell Bacterial Spot" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Copper Sprays</li>
-              </ul>
-            </div>
-          )}
-          {data == "Early Leaf Spot" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Apply Fungicides or Neem Oil</li>
-              </ul>
-            </div>
-          )}
-          {data == "Early Rust" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts</li>
-              </ul>
-            </div>
-          )}
-          {data == "Late Leaf Spot" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Crop rotation with non-host crops preferably cereals</li>
-              </ul>
-            </div>
-          )}
-          {data == "Nutrition Deficiency" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Application of 250kg/Ha Gypsum</li>
-              </ul>
-            </div>
-          )}
-          {data == "Rust" && (
-            <div className="treat">
-              <h1>Treatment</h1>
-              <ul>
-                <li>Remove Affected Parts
-                  
-                </li>
+                {/* Add treatment list items based on the disease */}
               </ul>
             </div>
           )}

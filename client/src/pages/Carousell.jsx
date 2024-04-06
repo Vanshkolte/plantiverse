@@ -1,57 +1,101 @@
-import React, { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-const images = [
-  '/assets/ai_plant/cute.avif',
-  '/assets/ai_plant/cute.avif',
-  '/assets/ai_plant/cute.avif',
-  '/assets/ai_plant/cute.avif',
-  '/assets/ai_plant/cute.avif',
-  '/assets/ai_plant/cute.avif',
-];
-export const Carousell = () => {
-  const carouselRef = useRef(null);
+import React, { useState, useEffect } from "react";
+
+const Carousel = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const goToSlide = (index) => {
+    if (!transitioning && index !== currentIndex) {
+      setTransitioning(true);
+      setCurrentIndex(index);
+    }
+  };
+
+  const goToPreviousSlide = () => {
+    const newIndex = (currentIndex - 1 + images.length) % images.length;
+    goToSlide(newIndex);
+  };
+
+  const goToNextSlide = () => {
+    const newIndex = (currentIndex + 1) % images.length;
+    goToSlide(newIndex);
+  };
 
   useEffect(() => {
-    const timeline = gsap.timeline({ repeat: -1, paused: true });
+    if (!hovered) {
+      const intervalId = setInterval(goToNextSlide, 3000); // Change slide every 3 seconds
+      return () => clearInterval(intervalId);
+    }
+  }, [currentIndex, hovered]);
 
-    // Define curve path (replace with your desired curve)
-    const curvePath = `M 0,100  C 100,7
-    0 200,70 300,100  S 400,130 300,200  C 200,270 100,270 0,200 Z`;
-
-    images.forEach((image, index) => {
-      const imageRef = carouselRef.current.children[index];
-
-      // Set image position on the curve based on index
-      const angle = index * (360 / images.length);
-      const radius = 150; // Adjust radius as needed
-
-      const x = radius * Math.cos(angle * Math.PI / 180);
-      const y = radius * Math.sin(angle * Math.PI / 180);
-
-      timeline.to(imageRef, {
-        duration: 2,
-        ease: "power3.inOut",
-        x,
-        y,
-        rotation: angle,
-      });
-    });
-
-    timeline.play();
-
-    return () => timeline.kill(); // Cleanup animation on unmount
-  }, [images]);
+  const handleTransitionEnd = () => {
+    setTransitioning(false);
+  };
 
   return (
-    <div ref={carouselRef} className="relative w-full h-full">
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Image ${index + 1}`}
-          className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 rounded-lg"
-        />
-      ))}
+    <div
+      className="relative w-full h-full"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        className="flex transition-transform duration-500 ease-in-out"
+        style={{
+          transform: `translateX(-${currentIndex * (100 / images.length)}%)`,
+        }}
+        onTransitionEnd={handleTransitionEnd}
+      >
+        {images.map((image, index) => (
+          <div key={index} className="w-full h-full">
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+      <button
+        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1"
+        onClick={goToPreviousSlide}
+      >
+        {"<"}
+      </button>
+      <button
+        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-1"
+        onClick={goToNextSlide}
+      >
+        {">"}
+      </button>
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`w-3 h-3 rounded-full bg-white ${
+              index === currentIndex ? "opacity-100" : "opacity-50"
+            }`}
+            onClick={() => goToSlide(index)}
+          ></div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const images = [
+  '/assets/ai_plant/cute.avif',
+  '/assets/ai_plant/g.avif',
+  '/assets/ai_plant/patta.avif',
+  '/assets/ai_plant/pila.avif',
+  '/assets/ai_plant/ptta.avif',
+  '/assets/ai_plant/red.avif',
+];
+
+export const Carousell = () => {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <Carousel images={images} />
     </div>
   );
 };

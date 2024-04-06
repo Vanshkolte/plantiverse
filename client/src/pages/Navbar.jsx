@@ -9,17 +9,17 @@ export const Navbar = () => {
     };
 
     const links = [
-        { text: 'Home', href: '#' },
-        { text: 'About', href: '#' },
-        { text: 'Check Plant', href: '#' },
-        { text: 'Feedbacks', href: '#' },
+        { text: 'Home', href: '/' },
+        { text: 'About', href: '/about' },
+        { text: 'Check Plant', href: '/detect' },
+        { text: 'Feedbacks', href: '/feedback' },
     ];
 
     return (
         <>
-            <nav className="absolute w-full h-24 bg-transparant z-10 p-4 flex justify-between items-center">
+            <nav className="absolute w-full h-24 bg-transparant z-30 p-4 flex justify-between items-center">
                 <span className='text-white absolute left-10 top-10'>LOGO</span>
-                <div className="flex gap-8 absolute right-10 top-10">
+                <div className="flex gap-8 absolute right-10 top-10 ">
                     <button className='text-xl btn text-black bg-white'>Sign in</button>
                     <button onClick={toggleNavbar} type="button" className="flex flex-col gap-3 items-center justify-center p-2 rounded-m transition duration-150 ease-in-out">
                         <div className={`w-12 h-0.5 bg-white ${isOpen ? 'rotate-45' : ''} transition-all duration-300`}></div>
@@ -29,7 +29,7 @@ export const Navbar = () => {
             </nav>
             {
                 isOpen &&
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className='flex gap-6 absolute w-full bg-black h-screen  justify-center items-center flex-col'>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className='flex gap-6 absolute w-full bg-black h-screen  justify-center items-center flex-col z-20'>
                     {links.map((link, index) => (
                         <motion.a
                             key={index}

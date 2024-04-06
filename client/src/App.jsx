@@ -1,15 +1,24 @@
 import React from 'react'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
-import { Carousell } from './pages/Carousell'
+import {BrowserRouter,Routes,Route} from "react-router-dom"
 import { Navbar } from './pages/Navbar'
+import { Detection } from './pages/Detection'
+import ChatBot from './component/ChatBot'
+import { Feedback } from './pages/Feedback'
 function App() {
   return (
     <>
-    <Navbar/>
-    <Home/>
-    <About/>
-    <Carousell/>
+    <BrowserRouter>
+    {/* <Navbar/> */}
+       <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/detect' element={<Detection/>}/>
+          <Route path='/feedback' element={<Feedback/>}/>
+       </Routes>
+       <ChatBot/>
+    </BrowserRouter>
     </>
   )
 }
