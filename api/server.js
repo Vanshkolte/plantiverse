@@ -22,6 +22,9 @@ const Post = mongoose.model('Post', {
   msg: String,
   rating:Number
 });
+const User = mongoose.model('User', {
+  email:string
+});
 
 // Routes
 app.get('/api/posts', async (req, res) => {
@@ -35,6 +38,12 @@ app.post('/api/posts', async (req, res) => {
   const post = new Post({ name : anonymous, msg,rating });
   await post.save();
   res.json(post);
+});
+app.post('/api/email', async (req, res) => {
+  const { email } = req.body;
+  const user = new User({ email });
+  await user.save();
+  res.json(user);
 });
 app.post('/chatbot', (req, res) => {
     const { message } = req.body;

@@ -49,7 +49,7 @@ const ChatBot = () => {
         // setMessages("");
     };
     return (
-        <div>
+        <div className=''>
             <img
                 className="fixed w-16 h-16  bottom-10 right-10 p-1 bg-white text-white rounded-full cursor-pointer z-50"
                 onClick={popUP}
@@ -66,7 +66,7 @@ const ChatBot = () => {
                             animate={{ opacity: 1, y: 10 }}
                             exit={{ opacity: 0, y: 20 }}
                             onMouseLeave={() => setMenu(false)}
-                            className="flex justify-between items-center w-72 h-[26rem] bg-gray-100 flex-col absolute right-20 bottom-32 rounded-lg overflow-hidden">
+                            className="fixed flex justify-between items-center w-72 h-[26rem] bg-gray-100 flex-col right-20 bottom-32 rounded-lg overflow-hidden z-40">
                             <div className="flex w-full justify-between items-center bg-black h-18 text-white p-4 shadow-2xl">
                                 <div className='flex gap-2'>
                                     <img className='w-12' src="/assets/robot.svg" alt="" />

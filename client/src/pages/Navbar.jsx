@@ -17,7 +17,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <nav className="absolute w-full h-24 bg-transparant z-30 p-4 flex justify-between items-center">
+            <nav className="absolute w-full h-24 bg-transparant z-50 p-4 flex justify-between items-center">
                 <span className='text-white absolute left-10 top-10'>LOGO</span>
                 <div className="flex gap-8 absolute right-10 top-10 ">
                     <button className='text-xl btn text-black bg-white'>Sign in</button>
@@ -29,7 +29,7 @@ export const Navbar = () => {
             </nav>
             {
                 isOpen &&
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className='flex gap-6 absolute w-full bg-black h-screen  justify-center items-center flex-col z-20'>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className='flex gap-6 absolute w-full bg-black h-screen  justify-center items-center flex-col z-40'>
                     {links.map((link, index) => (
                         <motion.a
                             key={index}

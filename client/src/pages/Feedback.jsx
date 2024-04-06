@@ -43,10 +43,10 @@ export const Feedback = () => {
   return (
     <div className="h-[80vh] mx-auto mt-8 flex justify-center items-center">
       <div className="w-1/2 p-2 center-pos">
-        <img className="w-[32rem]" src={leftImage} alt="Left" />
+        <img className="w-[38rem] h-[38rem]" src={leftImage} alt="Left" />
       </div>
       <div className="w-1/2">
-        <div className="mx-auto">
+        <div className="mx-auto flex flex-col gap-8">
           <h1 className="text-3xl font-semibold mb-4">Feedback Form</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -70,7 +70,7 @@ export const Feedback = () => {
               />
             </div>
             <div className="mb-4">
-            <Rating name="size-large" value={rating}  onChange={(e) => setRating(e.target.value)} size="large" />
+            <Rating name="size-large" value={rating}  onChange={(e) => setRating(e.target.value)} size="large" aria-required />
             </div>
             <button
               type="submit"

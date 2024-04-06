@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { LuUploadCloud } from "react-icons/lu";
-import Potato from "/assets/plants/potatoo.png";
+import Potato from "/assets/plants/potatoo.png"; // Corrected paths for images
 import groundnut from "/assets/plants/groundnut.png";
 import tomata from "/assets/plants/tomata.png";
 import pepper from "/assets/plants/pepper.png";
@@ -45,33 +45,34 @@ function Input() {
         <h2 className="text-xl font-semibold mb-4">Select a plant</h2>
         <div className="flex gap-4">
           <button onClick={() => setUrl('potato')} className=" bg-gray-400 rounded-full p-2 active:bg-gray-200" title="potato">
-            <img className="w-16 h-16" src={Potato} alt="" />
+            <img className="w-16 h-16" src={Potato} alt="Potato" />
           </button>
           <button onClick={() => setUrl('tomato')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="tomato">
-            <img className="w-16 h-16" src={tomata} alt="" />
+            <img className="w-16 h-16" src={tomata} alt="Tomato" />
           </button>
           <button onClick={() => setUrl('pepper')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="pepper">
-            <img className="w-16 h-16" src={pepper} alt="" />
+            <img className="w-16 h-16" src={pepper} alt="Pepper" />
           </button>
           <button onClick={() => setUrl('groundnut')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="groundnut">
-            <img className="w-16 h-16" src={groundnut} alt="" />
+            <img className="w-16 h-16" src={groundnut} alt="Groundnut" />
           </button>
           <button onClick={() => setUrl('blackgram')} className="bg-gray-400 rounded-full p-2 active:bg-gray-200" title="blackgram">
-            <img className="w-16 h-16" src={blackgram} alt="" />
+            <img className="w-16 h-16" src={blackgram} alt="Blackgram" />
           </button>
         </div>
       </div>
-      <input type="button" value="" />
+      <input type="button" value="" /> {/* This line seems redundant, you might remove it */}
       <div className="flex justify-center items-center gap-8">
         <div className="box1 mr-4">
           {!image && (
-            <div className="text-center">
-              <p>Upload a photo of your <strong>{url}</strong> plant</p>
-              <div className="input-box">
-                <LuUploadCloud />
-                <span className="ml-2" id="up-text">Click Here for Upload image</span>
+            <div className="flex flex-col gap-4">
+              <span className="text-3xl font-bold">Is Your Plant Healthy ? </span>
+              <p>Check By Upload a photo of your <strong>{url}</strong> plant</p>
+              <div className="flex flex-col p-4 justify-center items-center h-54 w-96 border-2 border-dashed rounded-lg">
+                <span className="text-9xl"><LuUploadCloud /></span>
+                <span className="">Click Here for Upload image</span>
                 <input
-                  className="input"
+                  className="absolute opacity-0 cursor-pointer py-20 w-96 border "
                   type="file"
                   accept="image/*"
                   onChange={onFileChange}
@@ -79,8 +80,8 @@ function Input() {
               </div>
             </div>
           )}
-          {image && <img className="mt-4" id="upload-img" src={image} alt="Uploaded plant" />}
-          <div className="flex text-white mt-4 gap-8">
+          {image && <img className="mt-4 w-96" id="upload-img" src={image} alt="Uploaded plant" />}
+          <div className="flex justify-center items-center text-white mt-4 gap-8">
             <button className="btn bg-black" onClick={onFileUpload}>Identify</button>
             <button className="btn bg-black" onClick={clearData}>Clear Data</button>
           </div>
