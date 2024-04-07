@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
@@ -20,7 +22,11 @@ export const Navbar = () => {
             <nav className="absolute w-full h-24 bg-transparant z-50 p-4 flex justify-between items-center">
                 <span className='text-white absolute left-10 top-10'>LOGO</span>
                 <div className="flex gap-8 absolute right-10 top-10 ">
-                    <button className='text-xl btn text-black bg-white'>Sign in</button>
+                    {isAuthenticated ? (
+                        <button className='text-xl btn text-black bg-white' onClick={() => logout({ returnTo: window.location.origin })}>Sign out</button>
+                    ) : (
+                        <button className='text-xl btn text-black bg-white' onClick={() => loginWithRedirect()}>Sign in</button>
+                    )}
                     <button onClick={toggleNavbar} type="button" className="flex flex-col gap-3 items-center justify-center p-2 rounded-m transition duration-150 ease-in-out">
                         <div className={`w-12 h-0.5 bg-white ${isOpen ? 'rotate-45' : ''} transition-all duration-300`}></div>
                         <div className={`w-12 h-0.5 bg-white mt-1 ${isOpen ? '-rotate-45' : ''} transition-all duration-300`}></div>
@@ -29,6 +35,7 @@ export const Navbar = () => {
             </nav>
             {
                 isOpen &&
+                <>
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className='flex gap-6 absolute w-full bg-black h-screen  justify-center items-center flex-col z-40'>
                     {links.map((link, index) => (
                         <motion.a
@@ -43,6 +50,7 @@ export const Navbar = () => {
                         </motion.a>
                     ))}
                 </motion.div>
+                </>
             }
         </>
     );
